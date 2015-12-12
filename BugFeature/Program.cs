@@ -153,7 +153,7 @@ namespace BugFeature
                         {
                             TimeStampData.Add(sumvalue + p.time);
                         }
-                        else if (sumvalue < 1000)//maximum cal time before stackoverflow
+                        else if (sumvalue < 5000)//maximum cal time before stackoverflow
                         {
                                 //find next value if there is not full value
                                 CalData(sumvalue + p.time, new string(CalDebugData ), p.patchCondition);
