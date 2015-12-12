@@ -1,0 +1,6 @@
+D:\Test\BugFeature\BugFeature\bin\Debug\BugFeature.exe.config
+D:\Test\BugFeature\BugFeature\bin\Debug\BugFeature.exe
+D:\Test\BugFeature\BugFeature\bin\Debug\BugFeature.pdb
+D:\Test\BugFeature\BugFeature\obj\Debug\BugFeature.exe
+D:\Test\BugFeature\BugFeature\obj\Debug\BugFeature.pdb
+D:\Test\BugFeature\BugFeature\obj\Debug\BugFeature.csprojResolveAssemblyReference.cache
