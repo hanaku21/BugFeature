@@ -135,30 +135,46 @@ namespace BugFeature
 
         static void CalData(int sumvalue, string testsubject, string patchbefore)
         {
-            for (int i = 0; i < KeepData.Count; i++)
-            {   
-                MyData p = KeepData[i];
-
-                //checking that is not the same last one of the patch
-                if(string.Compare(patchbefore,p.patchCondition) != 0)
+            if (KeepData.Count > 0)
+            {
+                for (int i = 0; i < KeepData.Count; i++)
                 {
-                    bool isCond = CheckingPreCondition(testsubject,p.patchCondition);
-                    if (isCond)
+                    MyData p = KeepData[i];
+
+                    //checking that is not the same last one of the patch
+                    if (string.Compare(patchbefore, p.patchCondition) != 0)
                     {
-                        //change value
-                        char[] CalDebugData = DebugData(testsubject.ToCharArray(), p.patchSolve.ToCharArray());
-                        //checking if can fix all bug
-                        bool isFullPatched = checkingFixValue(CalDebugData);
-                        if (isFullPatched)
+                        bool isCond = CheckingPreCondition(testsubject, p.patchCondition);
+                        if (isCond)
                         {
-                            TimeStampData.Add(sumvalue + p.time);
+                            //change value
+                            char[] CalDebugData = DebugData(testsubject.ToCharArray(), p.patchSolve.ToCharArray());
+                            //checking if can fix all bug
+                            bool isFullPatched = checkingFixValue(CalDebugData);
+                            if (isFullPatched)
+                            {
+                                TimeStampData.Add(sumvalue + p.time);
+                            }
+                            else
+                            {
+                                if (TimeStampData.Count > 0)
+                                {
+                                    if (sumvalue + p.time < TimeStampData.Min())
+                                    {
+                                        //find next value if there is not full value
+                                        CalData(sumvalue + p.time, new string(CalDebugData), p.patchCondition);
+                                    }
+                                }
+                                else
+                                {
+                                    if (sumvalue + p.time < 2000)//maximum cal time before stackoverflow
+                                    {
+                                        //find next value if there is not full value
+                                        CalData(sumvalue + p.time, new string(CalDebugData), p.patchCondition);
+                                    }
+                                }
+                            }
                         }
-                        else if (sumvalue < 5000)//maximum cal time before stackoverflow
-                        {
-                                //find next value if there is not full value
-                                CalData(sumvalue + p.time, new string(CalDebugData ), p.patchCondition);
-                        }
-                    
                     }
                 }
             }
